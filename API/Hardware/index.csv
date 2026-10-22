@@ -1,0 +1,644 @@
+Nome;Tipo;Fabricante;Tier (Desempenho)
+Intel Xeon 3040;CPU;Intel;Fraca
+Intel Xeon 3060;CPU;Intel;Fraca
+Intel Xeon 3070;CPU;Intel;Fraca
+Intel Xeon 3075;CPU;Intel;Fraca
+Intel Xeon 3110;CPU;Intel;Fraca
+Intel Xeon 3120;CPU;Intel;Fraca
+Intel Xeon 3210;CPU;Intel;Fraca
+Intel Xeon 3220;CPU;Intel;Fraca
+Intel Xeon 3320;CPU;Intel;Fraca
+Intel Xeon 3330;CPU;Intel;Fraca
+Intel Xeon 3350;CPU;Intel;Fraca
+Intel Xeon L3110;CPU;Intel;Fraca
+Intel Xeon E3110;CPU;Intel;Fraca
+Intel Xeon E3-1220 v3;CPU;Intel;Fraca
+Intel Xeon E3-1230 v3;CPU;Intel;Fraca
+Intel Xeon E3-1220 v5;CPU;Intel;Fraca
+Intel Xeon E3-1230 v5;CPU;Intel;Fraca
+Intel Xeon E3-1220 v6;CPU;Intel;Fraca
+Intel Xeon E3-1225 v5;CPU;Intel;Fraca
+Intel Xeon E3-1225 v6;CPU;Intel;Fraca
+Intel Xeon Bronze 3104;CPU;Intel;Fraca
+Intel Xeon Bronze 3106;CPU;Intel;Fraca
+Intel Xeon Bronze 3204;CPU;Intel;Fraca
+Intel Xeon Bronze 3206R;CPU;Intel;Fraca
+Intel Xeon Bronze 3408U;CPU;Intel;Fraca
+Intel Xeon D-1518;CPU;Intel;Fraca
+Intel Xeon D-1521;CPU;Intel;Fraca
+Intel Xeon D-1541;CPU;Intel;Fraca
+Intel Xeon E5502;CPU;Intel;Média
+Intel Xeon E5506;CPU;Intel;Média
+Intel Xeon E5520;CPU;Intel;Média
+Intel Xeon E5540;CPU;Intel;Média
+Intel Xeon X5550;CPU;Intel;Média
+Intel Xeon X5560;CPU;Intel;Média
+Intel Xeon X5570;CPU;Intel;Média
+Intel Xeon X5650;CPU;Intel;Média
+Intel Xeon X5660;CPU;Intel;Média
+Intel Xeon X5670;CPU;Intel;Média
+Intel Xeon X5675;CPU;Intel;Média
+Intel Xeon X5680;CPU;Intel;Média
+Intel Xeon E5-2620;CPU;Intel;Média
+Intel Xeon E5-2630;CPU;Intel;Média
+Intel Xeon E5-2640;CPU;Intel;Média
+Intel Xeon E5-2650;CPU;Intel;Média
+Intel Xeon E5-2660;CPU;Intel;Média
+Intel Xeon E5-2670;CPU;Intel;Média
+Intel Xeon E5-2620 v2;CPU;Intel;Média
+Intel Xeon E5-2630 v2;CPU;Intel;Média
+Intel Xeon E5-2640 v2;CPU;Intel;Média
+Intel Xeon E5-2650 v2;CPU;Intel;Média
+Intel Xeon E5-2660 v2;CPU;Intel;Média
+Intel Xeon E5-2670 v2;CPU;Intel;Média
+Intel Xeon E5-2620 v3;CPU;Intel;Média
+Intel Xeon E5-2630 v3;CPU;Intel;Média
+Intel Xeon E5-2640 v3;CPU;Intel;Média
+Intel Xeon E5-2650 v3;CPU;Intel;Média
+Intel Xeon E5-2660 v3;CPU;Intel;Média
+Intel Xeon E5-2670 v3;CPU;Intel;Média
+Intel Xeon E5-2630 v4;CPU;Intel;Média
+Intel Xeon E5-2640 v4;CPU;Intel;Média
+Intel Xeon E5-2650 v4;CPU;Intel;Média
+Intel Xeon E5-2660 v4;CPU;Intel;Média
+Intel Xeon E3-1270 v3;CPU;Intel;Média
+Intel Xeon E3-1275 v3;CPU;Intel;Média
+Intel Xeon E3-1280 v6;CPU;Intel;Média
+Intel Xeon E3-1245 v5;CPU;Intel;Média
+Intel Xeon E3-1270 v5;CPU;Intel;Média
+Intel Xeon E3-1275 v6;CPU;Intel;Média
+Intel Xeon Silver 4108;CPU;Intel;Média
+Intel Xeon Silver 4110;CPU;Intel;Média
+Intel Xeon Silver 4114;CPU;Intel;Média
+Intel Xeon Silver 4116;CPU;Intel;Média
+Intel Xeon Silver 4208;CPU;Intel;Média
+Intel Xeon Silver 4210;CPU;Intel;Média
+Intel Xeon Silver 4210R;CPU;Intel;Média
+Intel Xeon Silver 4214;CPU;Intel;Média
+Intel Xeon Silver 4216;CPU;Intel;Média
+Intel Xeon Silver 4309Y;CPU;Intel;Média
+Intel Xeon Silver 4310;CPU;Intel;Média
+Intel Xeon Silver 4314;CPU;Intel;Média
+Intel Xeon Silver 4410Y;CPU;Intel;Média
+Intel Xeon Silver 4416+;CPU;Intel;Média
+Intel Xeon W-1250;CPU;Intel;Média
+Intel Xeon W-1270;CPU;Intel;Média
+Intel Xeon W-1290;CPU;Intel;Média
+Intel Xeon W-1350;CPU;Intel;Média
+Intel Xeon W-1370;CPU;Intel;Média
+Intel Xeon W-1390;CPU;Intel;Média
+Intel Xeon W3-2423;CPU;Intel;Média
+Intel Xeon W3-2425;CPU;Intel;Média
+Intel Xeon D-1602;CPU;Intel;Média
+Intel Xeon D-1622;CPU;Intel;Média
+Intel Xeon D-1633N;CPU;Intel;Média
+Intel Xeon D-2123IT;CPU;Intel;Média
+Intel Xeon D-2145NT;CPU;Intel;Média
+Intel Xeon E5-2680 v4;CPU;Intel;Forte
+Intel Xeon E5-2690 v4;CPU;Intel;Forte
+Intel Xeon E5-2695 v4;CPU;Intel;Forte
+Intel Xeon E5-2698 v4;CPU;Intel;Forte
+Intel Xeon E5-2699 v4;CPU;Intel;Forte
+Intel Xeon E7-4850 v4;CPU;Intel;Forte
+Intel Xeon E7-8890 v4;CPU;Intel;Forte
+Intel Xeon E7-8891 v4;CPU;Intel;Forte
+Intel Xeon E7-8894 v4;CPU;Intel;Forte
+Intel Xeon W-2135;CPU;Intel;Forte
+Intel Xeon W-2145;CPU;Intel;Forte
+Intel Xeon W-2155;CPU;Intel;Forte
+Intel Xeon W-2175;CPU;Intel;Forte
+Intel Xeon W-2195;CPU;Intel;Forte
+Intel Xeon W-2223;CPU;Intel;Forte
+Intel Xeon W-2245;CPU;Intel;Forte
+Intel Xeon W-2255;CPU;Intel;Forte
+Intel Xeon W-2265;CPU;Intel;Forte
+Intel Xeon W-2275;CPU;Intel;Forte
+Intel Xeon W-2295;CPU;Intel;Forte
+Intel Xeon W-3175X;CPU;Intel;Forte
+Intel Xeon W-3223;CPU;Intel;Forte
+Intel Xeon W-3225;CPU;Intel;Forte
+Intel Xeon W-3235;CPU;Intel;Forte
+Intel Xeon W-3245;CPU;Intel;Forte
+Intel Xeon W-3265;CPU;Intel;Forte
+Intel Xeon W-3275;CPU;Intel;Forte
+Intel Xeon W-3335;CPU;Intel;Forte
+Intel Xeon W-3345;CPU;Intel;Forte
+Intel Xeon W-3365;CPU;Intel;Forte
+Intel Xeon W-3375;CPU;Intel;Forte
+Intel Xeon W5-2465X;CPU;Intel;Forte
+Intel Xeon W7-2495X;CPU;Intel;Forte
+Intel Xeon W7-3465X;CPU;Intel;Forte
+Intel Xeon W9-3475X;CPU;Intel;Forte
+Intel Xeon W9-3495X;CPU;Intel;Forte
+Intel Xeon Gold 5115;CPU;Intel;Forte
+Intel Xeon Gold 5118;CPU;Intel;Forte
+Intel Xeon Gold 5120;CPU;Intel;Forte
+Intel Xeon Gold 5218;CPU;Intel;Forte
+Intel Xeon Gold 5218R;CPU;Intel;Forte
+Intel Xeon Gold 5220;CPU;Intel;Forte
+Intel Xeon Gold 5220R;CPU;Intel;Forte
+Intel Xeon Gold 5317;CPU;Intel;Forte
+Intel Xeon Gold 5320;CPU;Intel;Forte
+Intel Xeon Gold 5415+;CPU;Intel;Forte
+Intel Xeon Gold 5420+;CPU;Intel;Forte
+Intel Xeon Gold 6130;CPU;Intel;Forte
+Intel Xeon Gold 6132;CPU;Intel;Forte
+Intel Xeon Gold 6138;CPU;Intel;Forte
+Intel Xeon Gold 6140;CPU;Intel;Forte
+Intel Xeon Gold 6142;CPU;Intel;Forte
+Intel Xeon Gold 6148;CPU;Intel;Forte
+Intel Xeon Gold 6152;CPU;Intel;Forte
+Intel Xeon Gold 6154;CPU;Intel;Forte
+Intel Xeon Gold 6208U;CPU;Intel;Forte
+Intel Xeon Gold 6226R;CPU;Intel;Forte
+Intel Xeon Gold 6230;CPU;Intel;Forte
+Intel Xeon Gold 6230R;CPU;Intel;Forte
+Intel Xeon Gold 6238R;CPU;Intel;Forte
+Intel Xeon Gold 6240;CPU;Intel;Forte
+Intel Xeon Gold 6242;CPU;Intel;Forte
+Intel Xeon Gold 6242R;CPU;Intel;Forte
+Intel Xeon Gold 6248;CPU;Intel;Forte
+Intel Xeon Gold 6248R;CPU;Intel;Forte
+Intel Xeon Gold 6252;CPU;Intel;Forte
+Intel Xeon Gold 6258R;CPU;Intel;Forte
+Intel Xeon Gold 6314U;CPU;Intel;Forte
+Intel Xeon Gold 6326;CPU;Intel;Forte
+Intel Xeon Gold 6330;CPU;Intel;Forte
+Intel Xeon Gold 6338;CPU;Intel;Forte
+Intel Xeon Gold 6338N;CPU;Intel;Forte
+Intel Xeon Gold 6342;CPU;Intel;Forte
+Intel Xeon Gold 6348;CPU;Intel;Forte
+Intel Xeon Gold 6354;CPU;Intel;Forte
+Intel Xeon Gold 6414U;CPU;Intel;Forte
+Intel Xeon Gold 6416H;CPU;Intel;Forte
+Intel Xeon Gold 6430;CPU;Intel;Forte
+Intel Xeon Gold 6438Y+;CPU;Intel;Forte
+Intel Xeon Gold 6442Y;CPU;Intel;Forte
+Intel Xeon Gold 6444Y;CPU;Intel;Forte
+Intel Xeon Gold 6448Y;CPU;Intel;Forte
+Intel Xeon Gold 6454S;CPU;Intel;Forte
+Intel Xeon Gold 6526Y;CPU;Intel;Forte
+Intel Xeon Gold 6544Y;CPU;Intel;Forte
+Intel Xeon Gold 6548Y+;CPU;Intel;Forte
+Intel Xeon Platinum 8153;CPU;Intel;Forte
+Intel Xeon Platinum 8156;CPU;Intel;Forte
+Intel Xeon Platinum 8158;CPU;Intel;Forte
+Intel Xeon Platinum 8160;CPU;Intel;Forte
+Intel Xeon Platinum 8164;CPU;Intel;Forte
+Intel Xeon Platinum 8168;CPU;Intel;Forte
+Intel Xeon Platinum 8170;CPU;Intel;Forte
+Intel Xeon Platinum 8176;CPU;Intel;Forte
+Intel Xeon Platinum 8180;CPU;Intel;Forte
+Intel Xeon Platinum 8253;CPU;Intel;Forte
+Intel Xeon Platinum 8256;CPU;Intel;Forte
+Intel Xeon Platinum 8260;CPU;Intel;Forte
+Intel Xeon Platinum 8268;CPU;Intel;Forte
+Intel Xeon Platinum 8270;CPU;Intel;Forte
+Intel Xeon Platinum 8276;CPU;Intel;Forte
+Intel Xeon Platinum 8280;CPU;Intel;Forte
+Intel Xeon Platinum 8280L;CPU;Intel;Forte
+Intel Xeon Platinum 8284;CPU;Intel;Forte
+Intel Xeon Platinum 8351N;CPU;Intel;Forte
+Intel Xeon Platinum 8352Y;CPU;Intel;Forte
+Intel Xeon Platinum 8358;CPU;Intel;Forte
+Intel Xeon Platinum 8358P;CPU;Intel;Forte
+Intel Xeon Platinum 8360Y;CPU;Intel;Forte
+Intel Xeon Platinum 8368;CPU;Intel;Forte
+Intel Xeon Platinum 8368Q;CPU;Intel;Forte
+Intel Xeon Platinum 8380;CPU;Intel;Forte
+Intel Xeon Platinum 8380H;CPU;Intel;Forte
+Intel Xeon Platinum 8434H;CPU;Intel;Forte
+Intel Xeon Platinum 8452Y;CPU;Intel;Forte
+Intel Xeon Platinum 8458P;CPU;Intel;Forte
+Intel Xeon Platinum 8460Y+;CPU;Intel;Forte
+Intel Xeon Platinum 8462Y+;CPU;Intel;Forte
+Intel Xeon Platinum 8468;CPU;Intel;Forte
+Intel Xeon Platinum 8470;CPU;Intel;Forte
+Intel Xeon Platinum 8480+;CPU;Intel;Forte
+Intel Xeon Platinum 8490H;CPU;Intel;Forte
+Intel Xeon Platinum 8558;CPU;Intel;Forte
+Intel Xeon Platinum 8570;CPU;Intel;Forte
+Intel Xeon Platinum 8592+;CPU;Intel;Forte
+Intel Xeon Platinum 8593Q;CPU;Intel;Forte
+Intel Xeon D-2183IT;CPU;Intel;Forte
+Intel Xeon D-2187NT;CPU;Intel;Forte
+Intel Xeon D-2733NT;CPU;Intel;Forte
+Intel Xeon D-2796NT;CPU;Intel;Forte
+Intel Xeon D-2799NT;CPU;Intel;Forte
+Intel Xeon Phi 7210;CPU;Intel;Forte
+Intel Xeon Phi 7250;CPU;Intel;Forte
+Intel Xeon Phi 7290;CPU;Intel;Forte
+Intel Celeron G3900;CPU;Intel;Fraca
+Intel Celeron G4900;CPU;Intel;Fraca
+Intel Celeron G5900;CPU;Intel;Fraca
+Intel Celeron N4020;CPU;Intel;Fraca
+Intel Celeron N5100;CPU;Intel;Fraca
+Intel Pentium G4560;CPU;Intel;Fraca
+Intel Pentium G5400;CPU;Intel;Fraca
+Intel Pentium Gold G6400;CPU;Intel;Fraca
+Intel Pentium Gold G7400;CPU;Intel;Fraca
+Intel Core i3-2100;CPU;Intel;Fraca
+Intel Core i3-3220;CPU;Intel;Fraca
+Intel Core i3-4130;CPU;Intel;Fraca
+Intel Core i3-6100;CPU;Intel;Fraca
+Intel Core i3-7100;CPU;Intel;Fraca
+Intel Core i3-8100;CPU;Intel;Fraca
+Intel Core i3-9100;CPU;Intel;Fraca
+Intel Core i3-10100;CPU;Intel;Fraca
+Intel Core i5-2400;CPU;Intel;Fraca
+Intel Core i5-3470;CPU;Intel;Fraca
+Intel Core i5-4460;CPU;Intel;Fraca
+Intel Core i3-12100;CPU;Intel;Média
+Intel Core i3-13100;CPU;Intel;Média
+Intel Core i5-6600;CPU;Intel;Média
+Intel Core i5-7600;CPU;Intel;Média
+Intel Core i5-8400;CPU;Intel;Média
+Intel Core i5-9400F;CPU;Intel;Média
+Intel Core i5-10400F;CPU;Intel;Média
+Intel Core i5-10500;CPU;Intel;Média
+Intel Core i5-11400F;CPU;Intel;Média
+Intel Core i5-11600K;CPU;Intel;Média
+Intel Core i7-2600;CPU;Intel;Média
+Intel Core i7-3770;CPU;Intel;Média
+Intel Core i7-4770;CPU;Intel;Média
+Intel Core i7-6700;CPU;Intel;Média
+Intel Core i7-7700;CPU;Intel;Média
+Intel Core i7-8700;CPU;Intel;Média
+Intel Core i7-9700F;CPU;Intel;Média
+Intel Core i5-12400F;CPU;Intel;Forte
+Intel Core i5-12600K;CPU;Intel;Forte
+Intel Core i5-13400F;CPU;Intel;Forte
+Intel Core i5-13600K;CPU;Intel;Forte
+Intel Core i5-14400F;CPU;Intel;Forte
+Intel Core i5-14600K;CPU;Intel;Forte
+Intel Core i7-10700K;CPU;Intel;Forte
+Intel Core i7-11700K;CPU;Intel;Forte
+Intel Core i7-12700K;CPU;Intel;Forte
+Intel Core i7-13700K;CPU;Intel;Forte
+Intel Core i7-14700K;CPU;Intel;Forte
+Intel Core i9-9900K;CPU;Intel;Forte
+Intel Core i9-10900K;CPU;Intel;Forte
+Intel Core i9-11900K;CPU;Intel;Forte
+Intel Core i9-12900K;CPU;Intel;Forte
+Intel Core i9-12900KS;CPU;Intel;Forte
+Intel Core i9-13900K;CPU;Intel;Forte
+Intel Core i9-13900KS;CPU;Intel;Forte
+Intel Core i9-14900K;CPU;Intel;Forte
+Intel Core i9-14900KS;CPU;Intel;Forte
+Intel Core Ultra 5 245K;CPU;Intel;Forte
+Intel Core Ultra 7 265K;CPU;Intel;Forte
+Intel Core Ultra 9 285K;CPU;Intel;Forte
+Intel Celeron N4020 (notebook);CPU;Intel;Fraca
+Intel Celeron N4500 (notebook);CPU;Intel;Fraca
+Intel Pentium Silver N5030 (notebook);CPU;Intel;Fraca
+Intel Pentium Gold 7505 (notebook);CPU;Intel;Fraca
+Intel Core i3-1005G1 (notebook);CPU;Intel;Fraca
+Intel Core i3-1115G4 (notebook);CPU;Intel;Fraca
+Intel Core i3-1215U (notebook);CPU;Intel;Fraca
+Intel Core i3-7100U (notebook);CPU;Intel;Fraca
+Intel Core i5-7200U (notebook);CPU;Intel;Fraca
+Intel Core i5-8250U (notebook);CPU;Intel;Fraca
+Intel Core i3-4005U (notebook);CPU;Intel;Fraca
+Intel Core i3-4010U (notebook);CPU;Intel;Fraca
+Intel Core i3-5005U (notebook);CPU;Intel;Fraca
+Intel Core i3-5010U (notebook);CPU;Intel;Fraca
+Intel Core i5-4200U (notebook);CPU;Intel;Fraca
+Intel Core i5-4210U (notebook);CPU;Intel;Fraca
+Intel Core i5-4300U (notebook);CPU;Intel;Fraca
+Intel Core i5-5200U (notebook);CPU;Intel;Fraca
+Intel Core i5-5300U (notebook);CPU;Intel;Fraca
+Intel Core i5-6200U (notebook);CPU;Intel;Fraca
+Intel Core i7-4500U (notebook);CPU;Intel;Fraca
+Intel Core i7-4510U (notebook);CPU;Intel;Fraca
+Intel Core i7-5500U (notebook);CPU;Intel;Fraca
+Intel Core i7-6500U (notebook);CPU;Intel;Fraca
+Intel Core i5-1035G1 (notebook);CPU;Intel;Média
+Intel Core i5-1135G7 (notebook);CPU;Intel;Média
+Intel Core i5-1235U (notebook);CPU;Intel;Média
+Intel Core i5-1240P (notebook);CPU;Intel;Média
+Intel Core i5-8300H (notebook);CPU;Intel;Média
+Intel Core i5-9300H (notebook);CPU;Intel;Média
+Intel Core i5-10300H (notebook);CPU;Intel;Média
+Intel Core i5-11300H (notebook);CPU;Intel;Média
+Intel Core i5-11400H (notebook);CPU;Intel;Média
+Intel Core i5-12450H (notebook);CPU;Intel;Média
+Intel Core i5-13420H (notebook);CPU;Intel;Média
+Intel Core i7-8550U (notebook);CPU;Intel;Média
+Intel Core i7-1065G7 (notebook);CPU;Intel;Média
+Intel Core i7-1165G7 (notebook);CPU;Intel;Média
+Intel Core i7-1255U (notebook);CPU;Intel;Média
+Intel Core i7-1260P (notebook);CPU;Intel;Média
+Intel Core i5-4210H (notebook);CPU;Intel;Média
+Intel Core i5-4310M (notebook);CPU;Intel;Média
+Intel Core i7-4700HQ (notebook);CPU;Intel;Média
+Intel Core i7-4710HQ (notebook);CPU;Intel;Média
+Intel Core i7-4720HQ (notebook);CPU;Intel;Média
+Intel Core i7-4750HQ (notebook);CPU;Intel;Média
+Intel Core i7-5600U (notebook);CPU;Intel;Média
+Intel Core i7-5700HQ (notebook);CPU;Intel;Média
+Intel Core i7-6700HQ (notebook);CPU;Intel;Média
+Intel Core i7-8750H (notebook);CPU;Intel;Forte
+Intel Core i7-9750H (notebook);CPU;Intel;Forte
+Intel Core i7-10750H (notebook);CPU;Intel;Forte
+Intel Core i7-10870H (notebook);CPU;Intel;Forte
+Intel Core i7-11800H (notebook);CPU;Intel;Forte
+Intel Core i7-11850H (notebook);CPU;Intel;Forte
+Intel Core i7-12700H (notebook);CPU;Intel;Forte
+Intel Core i7-12800H (notebook);CPU;Intel;Forte
+Intel Core i7-13700H (notebook);CPU;Intel;Forte
+Intel Core i7-13700HX (notebook);CPU;Intel;Forte
+Intel Core i7-14700HX (notebook);CPU;Intel;Forte
+Intel Core i9-9880H (notebook);CPU;Intel;Forte
+Intel Core i9-10980HK (notebook);CPU;Intel;Forte
+Intel Core i9-11900H (notebook);CPU;Intel;Forte
+Intel Core i9-11980HK (notebook);CPU;Intel;Forte
+Intel Core i9-12900H (notebook);CPU;Intel;Forte
+Intel Core i9-12900HK (notebook);CPU;Intel;Forte
+Intel Core i9-12900HX (notebook);CPU;Intel;Forte
+Intel Core i9-13900H (notebook);CPU;Intel;Forte
+Intel Core i9-13900HX (notebook);CPU;Intel;Forte
+Intel Core i9-13980HX (notebook);CPU;Intel;Forte
+Intel Core i9-14900HX (notebook);CPU;Intel;Forte
+Intel Core Ultra 5 125H (notebook);CPU;Intel;Forte
+Intel Core Ultra 7 155H (notebook);CPU;Intel;Forte
+Intel Core Ultra 7 155U (notebook);CPU;Intel;Forte
+Intel Core Ultra 9 185H (notebook);CPU;Intel;Forte
+Intel Core Ultra 9 275HX (notebook);CPU;Intel;Forte
+AMD Athlon 200GE;CPU;AMD;Fraca
+AMD Athlon 3000G;CPU;AMD;Fraca
+AMD Athlon X4 950;CPU;AMD;Fraca
+AMD FX-4300;CPU;AMD;Fraca
+AMD FX-6300;CPU;AMD;Fraca
+AMD FX-8320;CPU;AMD;Fraca
+AMD FX-8350;CPU;AMD;Fraca
+AMD A8-9600;CPU;AMD;Fraca
+AMD A10-9700;CPU;AMD;Fraca
+AMD Ryzen 3 1200;CPU;AMD;Fraca
+AMD Ryzen 3 1300X;CPU;AMD;Fraca
+AMD Ryzen 3 2200G;CPU;AMD;Fraca
+AMD Ryzen 3 3200G;CPU;AMD;Fraca
+AMD Ryzen 5 1400;CPU;AMD;Fraca
+AMD Ryzen 5 1600;CPU;AMD;Fraca
+AMD Ryzen 3 3100;CPU;AMD;Média
+AMD Ryzen 3 4100;CPU;AMD;Média
+AMD Ryzen 3 5300G;CPU;AMD;Média
+AMD Ryzen 5 2600;CPU;AMD;Média
+AMD Ryzen 5 2600X;CPU;AMD;Média
+AMD Ryzen 5 3400G;CPU;AMD;Média
+AMD Ryzen 5 3500;CPU;AMD;Média
+AMD Ryzen 5 3600;CPU;AMD;Média
+AMD Ryzen 5 4600G;CPU;AMD;Média
+AMD Ryzen 7 1700;CPU;AMD;Média
+AMD Ryzen 7 1700X;CPU;AMD;Média
+AMD Ryzen 7 2700;CPU;AMD;Média
+AMD Ryzen 7 2700X;CPU;AMD;Média
+AMD Ryzen 7 3700X;CPU;AMD;Média
+AMD Ryzen 5 5600;CPU;AMD;Forte
+AMD Ryzen 5 5600X;CPU;AMD;Forte
+AMD Ryzen 5 5600X3D;CPU;AMD;Forte
+AMD Ryzen 5 7600;CPU;AMD;Forte
+AMD Ryzen 5 7600X;CPU;AMD;Forte
+AMD Ryzen 5 7600X3D;CPU;AMD;Forte
+AMD Ryzen 5 9600X;CPU;AMD;Forte
+AMD Ryzen 7 3800X;CPU;AMD;Forte
+AMD Ryzen 7 5700X;CPU;AMD;Forte
+AMD Ryzen 7 5800X;CPU;AMD;Forte
+AMD Ryzen 7 5800X3D;CPU;AMD;Forte
+AMD Ryzen 7 7700X;CPU;AMD;Forte
+AMD Ryzen 7 7800X3D;CPU;AMD;Forte
+AMD Ryzen 7 9700X;CPU;AMD;Forte
+AMD Ryzen 7 9800X3D;CPU;AMD;Forte
+AMD Ryzen 9 3900X;CPU;AMD;Forte
+AMD Ryzen 9 3950X;CPU;AMD;Forte
+AMD Ryzen 9 5900X;CPU;AMD;Forte
+AMD Ryzen 9 5950X;CPU;AMD;Forte
+AMD Ryzen 9 7900X;CPU;AMD;Forte
+AMD Ryzen 9 7900X3D;CPU;AMD;Forte
+AMD Ryzen 9 7950X;CPU;AMD;Forte
+AMD Ryzen 9 7950X3D;CPU;AMD;Forte
+AMD Ryzen 9 9900X;CPU;AMD;Forte
+AMD Ryzen 9 9950X;CPU;AMD;Forte
+AMD Ryzen 9 9950X3D;CPU;AMD;Forte
+AMD Ryzen Threadripper 3960X;CPU;AMD;Forte
+AMD Ryzen Threadripper 7980X;CPU;AMD;Forte
+AMD Athlon Silver 3050U (notebook);CPU;AMD;Fraca
+AMD Ryzen 3 3250U (notebook);CPU;AMD;Fraca
+AMD Ryzen 3 3300U (notebook);CPU;AMD;Fraca
+AMD Ryzen 3 5300U (notebook);CPU;AMD;Fraca
+AMD Ryzen 3 7320U (notebook);CPU;AMD;Fraca
+AMD Ryzen 5 3500U (notebook);CPU;AMD;Média
+AMD Ryzen 5 4500U (notebook);CPU;AMD;Média
+AMD Ryzen 5 5500U (notebook);CPU;AMD;Média
+AMD Ryzen 5 5600H (notebook);CPU;AMD;Média
+AMD Ryzen 5 6600H (notebook);CPU;AMD;Média
+AMD Ryzen 5 7530U (notebook);CPU;AMD;Média
+AMD Ryzen 5 7535HS (notebook);CPU;AMD;Média
+AMD Ryzen 5 8645HS (notebook);CPU;AMD;Média
+AMD Ryzen 7 4700U (notebook);CPU;AMD;Média
+AMD Ryzen 7 5700U (notebook);CPU;AMD;Média
+AMD Ryzen 7 4800H (notebook);CPU;AMD;Forte
+AMD Ryzen 7 4800HS (notebook);CPU;AMD;Forte
+AMD Ryzen 7 5800H (notebook);CPU;AMD;Forte
+AMD Ryzen 7 5800HS (notebook);CPU;AMD;Forte
+AMD Ryzen 7 6800H (notebook);CPU;AMD;Forte
+AMD Ryzen 7 6800HS (notebook);CPU;AMD;Forte
+AMD Ryzen 7 7735HS (notebook);CPU;AMD;Forte
+AMD Ryzen 7 7840HS (notebook);CPU;AMD;Forte
+AMD Ryzen 7 8845HS (notebook);CPU;AMD;Forte
+AMD Ryzen 9 4900H (notebook);CPU;AMD;Forte
+AMD Ryzen 9 4900HS (notebook);CPU;AMD;Forte
+AMD Ryzen 9 5900HX (notebook);CPU;AMD;Forte
+AMD Ryzen 9 5980HX (notebook);CPU;AMD;Forte
+AMD Ryzen 9 6900HX (notebook);CPU;AMD;Forte
+AMD Ryzen 9 6980HX (notebook);CPU;AMD;Forte
+AMD Ryzen 9 7940HS (notebook);CPU;AMD;Forte
+AMD Ryzen 9 7945HX (notebook);CPU;AMD;Forte
+AMD Ryzen 9 8945HS (notebook);CPU;AMD;Forte
+AMD Ryzen 9 8945HX (notebook);CPU;AMD;Forte
+AMD Ryzen AI 9 HX 370 (notebook);CPU;AMD;Forte
+AMD Ryzen AI 9 HX 375 (notebook);CPU;AMD;Forte
+Apple M1 (notebook);CPU;Apple;Média
+Apple M2 (notebook);CPU;Apple;Média
+Apple M3 (notebook);CPU;Apple;Média
+Apple M1 Pro (notebook);CPU;Apple;Forte
+Apple M1 Max (notebook);CPU;Apple;Forte
+Apple M1 Ultra;CPU;Apple;Forte
+Apple M2 Pro (notebook);CPU;Apple;Forte
+Apple M2 Max (notebook);CPU;Apple;Forte
+Apple M2 Ultra;CPU;Apple;Forte
+Apple M3 Pro (notebook);CPU;Apple;Forte
+Apple M3 Max (notebook);CPU;Apple;Forte
+Apple M4 (notebook);CPU;Apple;Forte
+Apple M4 Pro (notebook);CPU;Apple;Forte
+Apple M4 Max (notebook);CPU;Apple;Forte
+Nvidia GeForce GT 710;GPU;Nvidia;Fraca
+Nvidia GeForce GT 730;GPU;Nvidia;Fraca
+Nvidia GeForce GT 1030;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 650;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 750;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 750 Ti;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 950;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1050;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1050 Ti;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1650;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1650 Super;GPU;Nvidia;Fraca
+Nvidia GeForce MX150;GPU;Nvidia;Fraca
+Nvidia GeForce MX250;GPU;Nvidia;Fraca
+Nvidia GeForce MX450;GPU;Nvidia;Fraca
+Nvidia GeForce GTX 960;GPU;Nvidia;Média
+Nvidia GeForce GTX 970;GPU;Nvidia;Média
+Nvidia GeForce GTX 1060;GPU;Nvidia;Média
+Nvidia GeForce GTX 1660;GPU;Nvidia;Média
+Nvidia GeForce GTX 1660 Super;GPU;Nvidia;Média
+Nvidia GeForce GTX 1660 Ti;GPU;Nvidia;Média
+Nvidia GeForce RTX 2060;GPU;Nvidia;Média
+Nvidia GeForce RTX 2060 Super;GPU;Nvidia;Média
+Nvidia GeForce RTX 3050;GPU;Nvidia;Média
+Nvidia GeForce RTX 3050 Ti;GPU;Nvidia;Média
+Nvidia GeForce RTX 4060;GPU;Nvidia;Média
+Nvidia GeForce GTX 980;GPU;Nvidia;Forte
+Nvidia GeForce GTX 980 Ti;GPU;Nvidia;Forte
+Nvidia GeForce GTX 1070;GPU;Nvidia;Forte
+Nvidia GeForce GTX 1070 Ti;GPU;Nvidia;Forte
+Nvidia GeForce GTX 1080;GPU;Nvidia;Forte
+Nvidia GeForce GTX 1080 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 2070;GPU;Nvidia;Forte
+Nvidia GeForce RTX 2070 Super;GPU;Nvidia;Forte
+Nvidia GeForce RTX 2080;GPU;Nvidia;Forte
+Nvidia GeForce RTX 2080 Super;GPU;Nvidia;Forte
+Nvidia GeForce RTX 2080 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3060;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3060 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3070;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3070 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3080;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3080 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3090;GPU;Nvidia;Forte
+Nvidia GeForce RTX 3090 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4060 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4070;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4070 Super;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4070 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4070 Ti Super;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4080;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4080 Super;GPU;Nvidia;Forte
+Nvidia GeForce RTX 4090;GPU;Nvidia;Forte
+Nvidia GeForce RTX 5060;GPU;Nvidia;Forte
+Nvidia GeForce RTX 5060 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 5070;GPU;Nvidia;Forte
+Nvidia GeForce RTX 5070 Ti;GPU;Nvidia;Forte
+Nvidia GeForce RTX 5080;GPU;Nvidia;Forte
+Nvidia GeForce RTX 5090;GPU;Nvidia;Forte
+Nvidia Titan RTX;GPU;Nvidia;Forte
+Nvidia GeForce MX330 (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce MX350 (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce MX450 (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce MX550 (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce MX570 (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1050 Laptop (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1650 Laptop (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce RTX 2050 Laptop (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce RTX 3050 Laptop (notebook);GPU;Nvidia;Fraca
+Nvidia GeForce GTX 1660 Ti Laptop (notebook);GPU;Nvidia;Média
+Nvidia GeForce RTX 2060 Laptop (notebook);GPU;Nvidia;Média
+Nvidia GeForce RTX 3050 Ti Laptop (notebook);GPU;Nvidia;Média
+Nvidia GeForce RTX 3060 Laptop (notebook);GPU;Nvidia;Média
+Nvidia GeForce RTX 4050 Laptop (notebook);GPU;Nvidia;Média
+Nvidia GeForce RTX 4060 Laptop (notebook);GPU;Nvidia;Média
+Nvidia GeForce RTX 2070 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 2070 Super Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 2080 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 2080 Super Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 3070 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 3070 Ti Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 3080 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 3080 Ti Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 4070 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 4080 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 4090 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 5070 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 5080 Laptop (notebook);GPU;Nvidia;Forte
+Nvidia GeForce RTX 5090 Laptop (notebook);GPU;Nvidia;Forte
+AMD Radeon HD 7770;GPU;AMD;Fraca
+AMD Radeon R7 240;GPU;AMD;Fraca
+AMD Radeon R7 250;GPU;AMD;Fraca
+AMD Radeon RX 550;GPU;AMD;Fraca
+AMD Radeon RX 560;GPU;AMD;Fraca
+AMD Radeon RX 6400;GPU;AMD;Fraca
+AMD Radeon RX 6500 XT;GPU;AMD;Fraca
+AMD Radeon Vega 8 (APU);GPU;AMD;Fraca
+AMD Radeon Vega 11 (APU);GPU;AMD;Fraca
+AMD Radeon R9 380;GPU;AMD;Média
+AMD Radeon RX 570;GPU;AMD;Média
+AMD Radeon RX 580;GPU;AMD;Média
+AMD Radeon RX 590;GPU;AMD;Média
+AMD Radeon RX 5500 XT;GPU;AMD;Média
+AMD Radeon RX 6600;GPU;AMD;Média
+AMD Radeon RX 6600 XT;GPU;AMD;Média
+AMD Radeon RX 7600;GPU;AMD;Média
+AMD Radeon R9 390;GPU;AMD;Forte
+AMD Radeon R9 Fury X;GPU;AMD;Forte
+AMD Radeon RX Vega 56;GPU;AMD;Forte
+AMD Radeon RX Vega 64;GPU;AMD;Forte
+AMD Radeon VII;GPU;AMD;Forte
+AMD Radeon RX 5600 XT;GPU;AMD;Forte
+AMD Radeon RX 5700;GPU;AMD;Forte
+AMD Radeon RX 5700 XT;GPU;AMD;Forte
+AMD Radeon RX 6650 XT;GPU;AMD;Forte
+AMD Radeon RX 6700 XT;GPU;AMD;Forte
+AMD Radeon RX 6750 XT;GPU;AMD;Forte
+AMD Radeon RX 6800;GPU;AMD;Forte
+AMD Radeon RX 6800 XT;GPU;AMD;Forte
+AMD Radeon RX 6900 XT;GPU;AMD;Forte
+AMD Radeon RX 6950 XT;GPU;AMD;Forte
+AMD Radeon RX 7700 XT;GPU;AMD;Forte
+AMD Radeon RX 7800 XT;GPU;AMD;Forte
+AMD Radeon RX 7900 GRE;GPU;AMD;Forte
+AMD Radeon RX 7900 XT;GPU;AMD;Forte
+AMD Radeon RX 7900 XTX;GPU;AMD;Forte
+AMD Radeon RX 9070;GPU;AMD;Forte
+AMD Radeon RX 9070 XT;GPU;AMD;Forte
+AMD Radeon Vega 3 (integrada, notebook);GPU;AMD;Fraca
+AMD Radeon Vega 6 (integrada, notebook);GPU;AMD;Fraca
+AMD Radeon 610M (integrada, notebook);GPU;AMD;Fraca
+AMD Radeon 660M (integrada, notebook);GPU;AMD;Fraca
+AMD Radeon 680M (integrada, notebook);GPU;AMD;Média
+AMD Radeon 780M (integrada, notebook);GPU;AMD;Média
+AMD Radeon RX 6500M (notebook);GPU;AMD;Média
+AMD Radeon RX 6550M (notebook);GPU;AMD;Média
+AMD Radeon RX 6600M (notebook);GPU;AMD;Média
+AMD Radeon RX 7600S (notebook);GPU;AMD;Média
+AMD Radeon RX 6700M (notebook);GPU;AMD;Forte
+AMD Radeon RX 6800M (notebook);GPU;AMD;Forte
+AMD Radeon RX 6850M XT (notebook);GPU;AMD;Forte
+AMD Radeon RX 7700S (notebook);GPU;AMD;Forte
+AMD Radeon RX 7900M (notebook);GPU;AMD;Forte
+Intel Arc A310;GPU;Intel;Fraca
+Intel Iris Xe Graphics (integrada);GPU;Intel;Fraca
+Intel UHD Graphics 630 (integrada);GPU;Intel;Fraca
+Intel Arc A380;GPU;Intel;Média
+Intel Arc A580;GPU;Intel;Média
+Intel Arc B570;GPU;Intel;Média
+Intel Arc A750;GPU;Intel;Forte
+Intel Arc A770;GPU;Intel;Forte
+Intel Arc B580;GPU;Intel;Forte
+Intel UHD Graphics 600 (integrada, notebook);GPU;Intel;Fraca
+Intel UHD Graphics 620 (integrada, notebook);GPU;Intel;Fraca
+Intel Iris Plus Graphics (integrada, notebook);GPU;Intel;Fraca
+Intel Iris Xe Graphics (integrada, notebook);GPU;Intel;Fraca
+Intel Arc A350M (notebook);GPU;Intel;Média
+Intel Arc A370M (notebook);GPU;Intel;Média
+Intel Arc Graphics (Meteor Lake, integrada, notebook);GPU;Intel;Média
+Intel Arc A730M (notebook);GPU;Intel;Forte
+Intel Arc A770M (notebook);GPU;Intel;Forte
+Apple M1 GPU (integrada);GPU;Apple;Média
+Apple M2 GPU (integrada);GPU;Apple;Média
+Apple M3 GPU (integrada);GPU;Apple;Média
+Apple M1 Pro GPU (integrada);GPU;Apple;Forte
+Apple M1 Max GPU (integrada);GPU;Apple;Forte
+Apple M2 Pro GPU (integrada);GPU;Apple;Forte
+Apple M2 Max GPU (integrada);GPU;Apple;Forte
+Apple M3 Pro GPU (integrada);GPU;Apple;Forte
+Apple M3 Max GPU (integrada);GPU;Apple;Forte
+Apple M4 Pro GPU (integrada);GPU;Apple;Forte
+Apple M4 Max GPU (integrada);GPU;Apple;Forte
