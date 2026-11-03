@@ -2,18 +2,22 @@ import math
 import os
 import re
 import threading
+import unicodedata
 
 import numpy as np
 import pandas as pd
 from flask import Flask, jsonify, request
 from werkzeug.exceptions import HTTPException
 
-# Sistema especialista de recomendação de jogos (Steam) exposto como API Flask.
+import lojas   # clientes das APIs da Steam, Epic Games e Microsoft Store (lojas.py)
+
+# Sistema especialista de recomendação de jogos exposto como API Flask.
+# Os jogos vêm das APIs da Steam, Epic Games e Microsoft Store (lojas.py), com foto e link.
 #
 # Rodar (qualquer SO):  python app.py
 # Produção Linux/Mac:   gunicorn --preload -w 2 -b 0.0.0.0:5000 app:app
 # Produção Windows:     pip install waitress  &&  waitress-serve --port=5000 app:app
-# Dependências:         pip install flask pandas numpy
+# Dependências:         pip install flask pandas numpy   (lojas.py usa só a biblioteca padrão)
 
 # Pasta do projeto. Por padrão é a pasta onde está este arquivo (funciona em qualquer
 # máquina). Pode ser sobrescrita pela variável de ambiente BASE_DIR.
@@ -24,46 +28,27 @@ except NameError:   # notebook/Jupyter/console: __file__ não existe -> usa a pa
 BASE_DIR = os.environ.get("BASE_DIR", _PASTA_PADRAO)
 
 # Arquivos usados (dentro de BASE_DIR):
-#   Jogos/games.csv      -> CSV da Steam
 #   Hardware/index.csv   -> tabela de CPUs/GPUs (colunas "Nome" e "Tier (Desempenho)")
-ARQUIVO_JOGOS = os.path.join(BASE_DIR, "Jogos", "games.csv")
 ARQUIVO_HARDWARE = os.path.join(BASE_DIR, "Hardware", "index.csv")
 
 # Se na sua tabela de hardware um tier MENOR significa peça MELHOR (ex.: Tier 1 = topo),
 # rode com HARDWARE_MENOR_E_MELHOR=1.
 HARDWARE_MENOR_E_MELHOR = os.environ.get("HARDWARE_MENOR_E_MELHOR", "0") == "1"
 
-# O CSV da Steam tem 40 campos por linha, mas o cabeçalho original vem com
-# "Discount" e "DLC count" grudados ("DiscountDLC count"), ou seja, 39 nomes.
-# Por isso o cabeçalho é ignorado e estes nomes corretos são usados no lugar.
-COLUNAS_STEAM = [
-    "AppID", "Name", "Release date", "Estimated owners", "Peak CCU", "Required age",
-    "Price", "Discount", "DLC count", "About the game", "Supported languages",
-    "Full audio languages", "Reviews", "Header image", "Website", "Support url",
-    "Support email", "Windows", "Mac", "Linux", "Metacritic score", "Metacritic url",
-    "User score", "Positive", "Negative", "Score rank", "Achievements", "Recommendations",
-    "Notes", "Average playtime forever", "Average playtime two weeks",
-    "Median playtime forever", "Median playtime two weeks", "Developers", "Publishers",
-    "Categories", "Genres", "Tags", "Screenshots", "Movies",
-]
-
-# Só as colunas que o sistema realmente usa (o arquivo é grande)
-COLUNAS_USADAS = [
-    "AppID", "Name", "Release date", "Price", "Windows",
-    "Positive", "Negative", "Categories", "Genres", "Tags",
-]
+# Taxa usada só para estimar requisitos (os limiares de preço foram pensados em US$).
+BRL_POR_USD = 5.5
 
 # Limites padrão da recomendação por categoria (podem ser sobrescritos na requisição)
-LIMITE_AVALIACAO_PADRAO = 300
-LIMITE_AVALIACAO_MAX = 1000
+LIMITE_AVALIACAO_PADRAO = 30    # cada jogo exige requisições às lojas; mantenha baixo
+LIMITE_AVALIACAO_MAX = 60
 LIMITE_EXIBICAO_PADRAO = 15
 LIMITE_EXIBICAO_MAX = 50
 
 AVISO_ESTIMATIVA = (
-    "Os requisitos de CPU/GPU/RAM dos jogos são ESTIMADOS (a base da Steam não os traz)."
+    "Os requisitos de CPU/GPU/RAM são ESTIMADOS (por gêneros, ano e preço); as lojas não os fornecem de forma padronizada."
 )
 
-# O CSV da Steam NÃO traz requisitos de CPU/GPU/RAM. Por isso o nível exigido por
+# As APIs das lojas NÃO trazem requisitos de CPU/GPU/RAM. Por isso o nível exigido por
 # cada jogo é ESTIMADO a partir das tags/gêneros, ano de lançamento e preço.
 TAGS_LEVES = [
     "pixel graphics", "2d", "retro", "text-based", "visual novel", "card game", "puzzle",
@@ -91,10 +76,68 @@ TRADUCAO_CATEGORIAS = {
     "sobrevivencia": "survival", "fazenda": "farming", "indie": "indie", "rpg": "rpg",
 }
 
+# Gírias/abreviações de GÊNERO usadas por jogadores -> tags/gêneros da Steam (chaves sem
+# acento, espaço ou hífen: "battle royale" vira "battleroyale", "co-op" vira "coop").
+GIRIAS_CATEGORIAS = {
+    "souls": ["souls-like"], "soulslike": ["souls-like"], "soulslikes": ["souls-like"],
+    "moba": ["moba"], "br": ["battle royale"], "battleroyale": ["battle royale"],
+    "zumbi": ["zombies"], "zumbis": ["zombies"], "zombie": ["zombies"],
+    "porradaria": ["fighting", "beat 'em up"], "pancadaria": ["fighting", "beat 'em up"],
+    "porrada": ["fighting"], "briga": ["fighting"],
+    "fazendinha": ["farming"], "terrorzinho": ["horror"], "susto": ["horror"],
+    "assustador": ["horror"], "medo": ["horror"],
+    "metroidvania": ["metroidvania"], "gacha": ["gacha"],
+    "mmo": ["massively multiplayer"], "mmorpg": ["massively multiplayer"],
+    "jrpg": ["jrpg"], "cozy": ["cozy"], "relaxante": ["relaxing"], "tranquilo": ["relaxing"],
+    "roguelike": ["roguelike"], "roguelite": ["roguelite"], "rogue": ["roguelike"],
+    "futebol": ["soccer", "football"], "basquete": ["basketball"],
+    "carro": ["racing", "driving"], "carros": ["racing", "driving"], "dirigir": ["driving"],
+    "fps": ["fps"], "tps": ["third-person shooter"],
+    "coop": ["co-op"], "cooperativo": ["co-op"], "pvp": ["pvp"], "pve": ["pve"],
+    "construcao": ["building", "base building"], "build": ["building"],
+    "crafting": ["crafting"], "anime": ["anime"], "waifu": ["anime"],
+    "tatico": ["tactical"], "furtivo": ["stealth"], "stealth": ["stealth"],
+    "hardcore": ["difficult"], "boomershooter": ["boomer shooter"],
+    "bullethell": ["bullet hell"], "vn": ["visual novel"], "visualnovel": ["visual novel"],
+    "namoro": ["dating sim"], "simulador": ["simulation"], "mundoaberto": ["open world"],
+}
+
+# Gírias/abreviações de NOME de jogo -> nome (ou parte do nome) usado na busca.
+# Também funcionam com número colado: "gta5", "re4", "rdr2", "cs2", "bg3", "ds3", "tw3"...
+GIRIAS_JOGOS = {
+    "gta": "grand theft auto", "gtav": "grand theft auto v", "gtasa": "grand theft auto san andreas",
+    "cs": "counter strike", "csgo": "counter strike global offensive", "css": "counter strike source",
+    "re": "resident evil", "rdr": "red dead redemption", "bg": "baldur's gate",
+    "ds": "dark souls", "er": "elden ring", "eldenring": "elden ring", "tw": "the witcher",
+    "tlou": "the last of us", "gow": "god of war", "hk": "hollow knight", "hl": "half life",
+    "l4d": "left 4 dead", "l4d2": "left 4 dead 2", "tf": "team fortress", "tf2": "team fortress 2",
+    "dbd": "dead by daylight", "pubg": "pubg battlegrounds", "r6": "rainbow six siege",
+    "r6s": "rainbow six siege", "cod": "call of duty", "mw": "modern warfare", "bf": "battlefield",
+    "nfs": "need for speed", "sdv": "stardew valley", "stardew": "stardew valley",
+    "fnaf": "five nights at freddy's", "ac": "assassin's creed", "poe": "path of exile",
+    "d4": "diablo 4", "sf": "street fighter", "mk": "mortal kombat", "fh": "forza horizon",
+    "ets2": "euro truck simulator 2", "ets": "euro truck simulator", "ats": "american truck simulator",
+    "mhw": "monster hunter world", "mhr": "monster hunter rise", "ff": "final fantasy",
+    "dmc": "devil may cry", "cp77": "cyberpunk 2077", "cyberpunk": "cyberpunk 2077",
+    "ts4": "the sims 4", "sims": "the sims", "rl": "rocket league", "ow": "overwatch",
+    "amongus": "among us", "fallguys": "fall guys", "gtfo": "gtfo", "nms": "no man's sky",
+    "skyrim": "skyrim", "fo": "fallout", "fo4": "fallout 4", "tes": "elder scrolls",
+    "darksouls": "dark souls", "mgs": "metal gear solid", "pvz": "plants vs zombies",
+    "lol": "league of legends", "wow": "world of warcraft", "mine": "minecraft",
+}
+
 COL_CPU_REQ = "CPU Estimada"
 COL_GPU_REQ = "GPU Estimada"
 COL_RAM_REQ = "RAM Estimada (GB)"
+COL_DIFICULDADE = "Dificuldade"   # Fácil / Médio / Difícil (o quanto o jogo exige da máquina)
 COL_NIVEL_HW = "_nivel"   # nível numérico normalizado (1 a 4) das peças de hardware
+
+NIVEIS_DIFICULDADE = {1: "Fácil", 2: "Médio", 3: "Difícil"}
+ALIAS_DIFICULDADE = {
+    "facil": "Fácil", "fácil": "Fácil", "leve": "Fácil",
+    "medio": "Médio", "médio": "Médio", "media": "Médio", "média": "Médio",
+    "dificil": "Difícil", "difícil": "Difícil", "pesado": "Difícil",
+}
 
 # Escala usada para converter níveis categóricos (Fraca/Média/Forte...) em números.
 TIER_ORDEM = {
@@ -137,10 +180,60 @@ def _py(valor):
 
 
 # ----------------------------------------------------------------------
+# Normalização de texto para buscas flexíveis
+# ----------------------------------------------------------------------
+
+def _normalizar(txt):
+    """Minúsculas, sem acentos nem símbolos como ® e ™."""
+    txt = unicodedata.normalize("NFKD", str(txt)).encode("ascii", "ignore").decode()
+    return txt.lower()
+
+
+def _compacto(txt):
+    """'E5-2680 v4' -> 'e52680v4' (sem espaços, hífens ou símbolos)."""
+    return re.sub(r"[^a-z0-9]", "", _normalizar(txt))
+
+
+def _tokens(txt):
+    """'Xeon E5-2680 v4' -> {'xeon', 'e5', '2680', 'v4'}."""
+    return set(re.findall(r"[a-z0-9]+", _normalizar(txt)))
+
+
+_ROMANOS = {"ii": "2", "iii": "3", "iv": "4", "v": "5", "vi": "6", "vii": "7", "viii": "8", "ix": "9", "x": "10"}
+
+
+def _tokens_jogo(txt):
+    """Como _tokens, mas números romanos viram algarismos ('GTA V' == 'GTA 5', 'Dark Souls III' == '3')."""
+    return {_ROMANOS.get(t, t) for t in re.findall(r"[a-z0-9]+", _normalizar(txt))}
+
+
+def _expandir_girias(texto):
+    """
+    Troca gírias/abreviações de jogos pelo nome real: 'gta 5' -> 'grand theft auto 5',
+    'rdr2' -> 'red dead redemption 2', 'bg3' -> "baldur's gate 3", 'csgo' -> 'counter strike global offensive'.
+    """
+    norm = _normalizar(texto)
+    compacto = re.sub(r"[^a-z0-9]", "", norm)
+    if compacto in GIRIAS_JOGOS:
+        return GIRIAS_JOGOS[compacto]
+    saida = []
+    for p in re.findall(r"[a-z0-9]+", norm):
+        if p in GIRIAS_JOGOS:
+            saida.append(GIRIAS_JOGOS[p])
+            continue
+        m = re.fullmatch(r"([a-z]+)(\d+[a-z]?)", p)
+        if m and m.group(1) in GIRIAS_JOGOS:
+            saida.append(GIRIAS_JOGOS[m.group(1)] + " " + m.group(2))
+            continue
+        saida.append(p)
+    return " ".join(saida)
+
+
+# ----------------------------------------------------------------------
 # Carga dos dados (feita uma única vez)
 # ----------------------------------------------------------------------
 
-_DADOS = {"jogos": None, "hardware": None}
+_DADOS = {"hardware": None}
 _TRAVA = threading.Lock()
 
 
@@ -159,9 +252,10 @@ def _ler_csv(caminho, **kwargs):
 
 def _estimar_requisitos(dados):
     """
-    Estima o nível exigido (Fraca / Média / Forte) de CPU e GPU e a RAM (GB)
-    de cada jogo, a partir de tags/gêneros, ano de lançamento e preço.
-    É uma aproximação: o CSV da Steam não traz os requisitos reais.
+    Estima o nível exigido (Fraca / Média / Forte) de CPU e GPU, a RAM (GB) e a
+    dificuldade (Fácil / Médio / Difícil) de cada jogo, a partir de tags/gêneros,
+    ano de lançamento e preço.
+    É uma aproximação: as lojas não trazem os requisitos de forma padronizada.
     """
     def tem(padroes):
         # \b evita falsos positivos (ex.: "rts" dentro de "sports")
@@ -173,7 +267,7 @@ def _estimar_requisitos(dados):
     cpu_pesada = tem(TAGS_CPU_PESADA)
 
     ano = dados["Release date"].astype(str).str.extract(r"(\d{4})")[0].astype(float).fillna(2015)
-    preco = dados["Price"].fillna(0)
+    preco = dados["Price"].fillna(0) / BRL_POR_USD   # limiares em US$
     parece_aaa = (ano >= 2018) & (preco >= 40)
 
     gpu_pts = 1 + (gpu_pesada & (ano >= 2012)).astype(int) + parece_aaa.astype(int)
@@ -189,32 +283,30 @@ def _estimar_requisitos(dados):
     dados[COL_GPU_REQ] = gpu_pts.map(niveis)
     dados[COL_CPU_REQ] = cpu_pts.map(niveis)
     dados[COL_RAM_REQ] = np.maximum(gpu_pts, cpu_pts).map({1: 4, 2: 8, 3: 16})
+    dados[COL_DIFICULDADE] = np.maximum(gpu_pts, cpu_pts).map(NIVEIS_DIFICULDADE)
 
 
-def _carregar_jogos():
-    """Lê o CSV da Steam, corrige o cabeçalho deslocado e prepara as colunas usadas."""
-    dados = _ler_csv(
-        ARQUIVO_JOGOS,
-        header=0,                # descarta o cabeçalho com defeito...
-        names=COLUNAS_STEAM,     # ...e usa os 40 nomes corretos
-        usecols=COLUNAS_USADAS,
-        low_memory=False,
-        on_bad_lines="skip",     # ignora linhas quebradas em vez de derrubar a carga
-    )
+def _df_jogos(lista, termos_extra=()):
+    """Transforma a lista de jogos das lojas (lojas.py) numa tabela com as colunas do sistema."""
+    linhas = []
+    extra = ",".join(termos_extra)
+    for i, j in enumerate(lista):
+        texto = ",".join([*(j.get("generos") or []), *(j.get("categorias") or []), extra]).lower()
+        linhas.append({
+            "AppID": j.get("id"), "Name": j.get("nome"), "Price": j.get("preco"),
+            "Release date": j.get("lancamento") or "",
+            "Genres": ", ".join(j.get("generos") or []),
+            "Positive": len(lista) - i,          # preserva a ordem de relevância das lojas
+            "_texto": texto,
+            "Loja": j.get("loja"), "Imagem": j.get("imagem"), "Link": j.get("link"),
+            "Ofertas": j.get("ofertas") or [],
+        })
+    colunas = ["AppID", "Name", "Price", "Release date", "Genres", "Positive", "_texto",
+               "Loja", "Imagem", "Link", "Ofertas"]
+    dados = pd.DataFrame(linhas, columns=colunas)
     dados["Price"] = pd.to_numeric(dados["Price"], errors="coerce")
-    dados["AppID"] = pd.to_numeric(dados["AppID"], errors="coerce")
-    dados = dados.dropna(subset=["Name", "Price", "AppID"])
-    dados["AppID"] = dados["AppID"].astype("int64")
-    dados = dados[dados["Windows"].astype(str).str.lower() == "true"].copy()
-    dados["Positive"] = pd.to_numeric(dados["Positive"], errors="coerce").fillna(0)
-
-    # texto único (gêneros + tags + categorias) usado nas buscas e nas estimativas
-    dados["_texto"] = (
-        dados["Genres"].fillna("") + "," + dados["Tags"].fillna("") + "," + dados["Categories"].fillna("")
-    ).str.lower()
-
     _estimar_requisitos(dados)
-    return dados.reset_index(drop=True)
+    return dados
 
 
 def _coluna_score(hardware):
@@ -265,17 +357,19 @@ def _carregar_hardware():
     hardware = hardware.dropna(subset=["Nome"]).copy()
     hardware["Nome"] = hardware["Nome"].astype(str)
     _normalizar_niveis(hardware)
+
+    # versões normalizadas do nome, para a busca flexível por peça
+    hardware["_compacto"] = hardware["Nome"].map(_compacto)
+    hardware["_tokens"] = hardware["Nome"].map(_tokens)
     return hardware.reset_index(drop=True)
 
 
 def carregar_dados():
-    """Carrega jogos e hardware na primeira chamada e reaproveita nas seguintes."""
+    """Carrega a tabela de hardware na primeira chamada (jogos vêm ao vivo das lojas)."""
     with _TRAVA:
-        if _DADOS["jogos"] is None:
-            _DADOS["jogos"] = _carregar_jogos()
         if _DADOS["hardware"] is None:
             _DADOS["hardware"] = _carregar_hardware()
-    return _DADOS["jogos"], _DADOS["hardware"]
+    return _DADOS["hardware"]
 
 
 # ----------------------------------------------------------------------
@@ -290,11 +384,11 @@ class Sistema:
 
     TIER_ORDEM = TIER_ORDEM
 
-    def __init__(self, jogos_df, hardware_df):
-        self.jogos_df = jogos_df
+    def __init__(self, hardware_df):
         self.hardware_df = hardware_df
+        self.lojas_status = {}     # resultado da consulta a cada loja nesta requisição
 
-        self.preco = None          # orçamento do usuário (US$)
+        self.preco = None          # orçamento do usuário (R$)
         self.ram = None
         self.geracao_ram = None
         self.mhz = None
@@ -404,7 +498,7 @@ class Sistema:
                     and f["valor_jogo"] > f["preco"]
                 ),
                 "mensagem": lambda f: (
-                    f"O jogo custa US$ {f['valor_jogo']:.2f} e seu orçamento é US$ {f['preco']:.2f}."
+                    f"O jogo custa R$ {f['valor_jogo']:.2f} e seu orçamento é R$ {f['preco']:.2f}."
                 ),
             },
             {
@@ -595,16 +689,36 @@ class Sistema:
 
     def buscar_hardware(self, nome):
         """
-        Procura peças na tabela de hardware pelo nome (parcial, sem diferenciar maiúsculas).
-        Resultados com nome exato vêm primeiro, depois os de nome mais curto.
+        Busca flexível de peças: ignora maiúsculas, acentos, hífens e espaços, e aceita
+        as palavras em qualquer ordem. 'e5 2680 v4', 'e5-2680v4' e 'xeon e5 2680 v4'
+        acham 'Intel Xeon E5-2680 v4'.
+        Ordem: nome mais próximo do digitado, desktop antes de notebook (a menos que o
+        usuário escreva 'notebook'/'laptop') e, por fim, o nome mais curto.
         """
         consulta = str(nome).strip()
-        nomes = self.hardware_df["Nome"]
-        achados = self.hardware_df[nomes.str.contains(consulta, case=False, na=False, regex=False)]
+        compacto = _compacto(consulta)
+        tokens = _tokens(consulta)
+        df = self.hardware_df
+        if not compacto:
+            return df.iloc[0:0]
+
+        mascara = df["_compacto"].str.contains(re.escape(compacto), regex=True, na=False)
+        mascara |= df["_tokens"].map(lambda t: tokens <= t)
+        achados = df[mascara]
         if achados.empty:
             return achados
-        exato = achados["Nome"].str.strip().str.lower() == consulta.lower()
-        ordem = (~exato).astype(int) * 100000 + achados["Nome"].str.len()
+
+        quer_notebook = bool(tokens & {"notebook", "laptop"})
+        exato = achados["_compacto"] == compacto
+        termina = achados["_compacto"].str.endswith(compacto)
+        eh_notebook = achados["Nome"].str.contains("notebook", case=False, na=False)
+
+        ordem = (
+            (~exato).astype(int) * 100000
+            + (~termina).astype(int) * 10000
+            + (eh_notebook != quer_notebook).astype(int) * 1000
+            + achados["Nome"].str.len()
+        )
         return achados.iloc[np.argsort(ordem.values, kind="stable")]
 
     def definir_hardware(self, hw):
@@ -691,7 +805,7 @@ class Sistema:
 
     def _avaliar_jogo(self, jogo_info):
         """
-        Avalia UM jogo (uma linha da base da Steam) contra o orçamento e o
+        Avalia UM jogo (uma linha vinda das lojas) contra o orçamento e o
         hardware da requisição, usando a base de regras + o motor de inferência.
         """
         valor = _py(jogo_info.get("Price"))
@@ -737,6 +851,11 @@ class Sistema:
             "app_id": _py(jogo_info.get("AppID")),
             "nome": _py(jogo_info.get("Name")),
             "valor": valor,
+            "loja": _py(jogo_info.get("Loja")),
+            "imagem": _py(jogo_info.get("Imagem")),
+            "link": _py(jogo_info.get("Link")),
+            "ofertas": jogo_info.get("Ofertas") or [],
+            "dificuldade": _py(jogo_info.get(COL_DIFICULDADE)),
             "status": status,
             "orcamento_ok": orcamento_ok,
             "hardware_ok": hardware_ok,
@@ -754,25 +873,31 @@ class Sistema:
     def _termos_busca(self, texto):
         """Devolve o termo digitado + sua tradução (se existir) para buscar nos gêneros/tags."""
         texto = texto.strip().lower()
+        girias = GIRIAS_CATEGORIAS.get(_compacto(texto))
+        if girias:   # gíria conhecida: usa só as tags equivalentes (evita casar pedaços de palavras)
+            return list(dict.fromkeys(girias))
         termos = [texto]
         if texto in TRADUCAO_CATEGORIAS:
             termos.append(TRADUCAO_CATEGORIAS[texto])
         return list(dict.fromkeys(t for t in termos if t))
 
-    def recomendar_por_categoria(self, categoria, limite_exibicao, limite_avaliacao):
-        """Opção 1: jogos da categoria que cabem no orçamento e rodam no PC."""
+    def recomendar_por_categoria(self, categoria, limite_exibicao, limite_avaliacao, dificuldade=None):
+        """Opção 1: jogos da categoria que cabem no orçamento e rodam no PC (filtro opcional de dificuldade)."""
         termos = self._termos_busca(categoria)
         if not termos:
             raise ErroRequisicao("Informe a 'categoria' (gênero/tag, ex: terror, estratégia, RPG).")
 
-        padrao = "|".join(re.escape(t) for t in termos)
-        resultado = self.jogos_df[self.jogos_df["_texto"].str.contains(padrao, regex=True, na=False)]
+        lista, self.lojas_status = lojas.buscar_por_categoria(termos, limite_avaliacao)
+        resultado = _df_jogos(lista, termos)
+        if dificuldade:
+            resultado = resultado[resultado[COL_DIFICULDADE] == dificuldade]
 
         if resultado.empty:
-            raise ErroRequisicao("Nenhum jogo encontrado nessa categoria.", 404)
+            raise ErroRequisicao(
+                "Nenhum jogo encontrado nessa categoria/dificuldade (ou as lojas não responderam: "
+                + self._resumo_lojas() + ").", 404)
 
         total = len(resultado)
-        resultado = resultado.sort_values("Positive", ascending=False).head(limite_avaliacao)
         avaliacoes = [self._avaliar_jogo(j) for _, j in resultado.iterrows()]
 
         rodam = [a for a in avaliacoes if a["status"] == "Roda"]
@@ -781,9 +906,11 @@ class Sistema:
 
         return {
             "categoria": categoria,
+            "dificuldade": dificuldade,
             "termos_buscados": termos,
             "orcamento": self.preco,
             "total_na_categoria": total,
+            "lojas_status": self.lojas_status,
             "avaliados": len(avaliacoes),
             "resumo": {
                 "rodam": len(rodam),
@@ -800,21 +927,33 @@ class Sistema:
     # Busca de jogos
     # ------------------------------------------------------------------
 
+    def _resumo_lojas(self):
+        return "; ".join(f"{l}: {'ok' if st.get('ok') else st.get('erro', 'falhou')}"
+                         for l, st in self.lojas_status.items())
+
     def pesquisar_jogo(self, nome, limite=5):
-        """Procura jogos pelo nome (parcial), os mais bem avaliados primeiro."""
-        resultado = self.jogos_df[
-            self.jogos_df["Name"].astype(str).str.contains(str(nome), case=False, na=False, regex=False)
-        ]
-        return resultado.sort_values("Positive", ascending=False).head(limite)
+        """Busca o jogo nas 3 lojas (com gírias expandidas) e devolve uma tabela já com requisitos estimados."""
+        for consulta in dict.fromkeys([_expandir_girias(nome), str(nome)]):
+            if not _compacto(consulta):
+                continue
+            lista, self.lojas_status = lojas.buscar_por_nome(consulta, limite)
+            if lista:
+                return _df_jogos(lista).head(limite)
+        return _df_jogos([])
 
     def resumo_jogo(self, jogo):
-        """Dados básicos de um jogo (sem avaliar hardware)."""
+        """Dados básicos de um jogo (sem avaliar hardware), com foto e link das lojas."""
         return {
             "app_id": _py(jogo["AppID"]),
             "nome": _py(jogo["Name"]),
             "preco": _py(jogo["Price"]),
             "lancamento": _py(jogo["Release date"]),
             "generos": _py(jogo["Genres"]),
+            "dificuldade": _py(jogo[COL_DIFICULDADE]),
+            "loja": _py(jogo["Loja"]),
+            "imagem": _py(jogo["Imagem"]),
+            "link": _py(jogo["Link"]),
+            "ofertas": jogo["Ofertas"] if isinstance(jogo["Ofertas"], list) else [],
             "requisitos_estimados": {
                 "cpu": _py(jogo[COL_CPU_REQ]),
                 "gpu": _py(jogo[COL_GPU_REQ]),
@@ -825,22 +964,25 @@ class Sistema:
     def verificar_jogo(self, app_id=None, nome=None):
         """Opção 2: um jogo específico roda no PC e cabe no orçamento?"""
         outros = []
-        if app_id is not None:
-            achado = self.jogos_df[self.jogos_df["AppID"] == app_id]
-            if achado.empty:
-                raise ErroRequisicao("Jogo não encontrado na base de dados.", 404)
-            jogo = achado.iloc[0]
+        if app_id is not None:   # app_id = ID do jogo na Steam
+            det = lojas.steam_detalhes(app_id)
+            if not det:
+                raise ErroRequisicao("Jogo não encontrado na Steam.", 404)
+            det["ofertas"] = [{"loja": "Steam", "preco": det["preco"], "link": det["link"], "imagem": det["imagem"]}]
+            achados = _df_jogos([det])
         else:
             achados = self.pesquisar_jogo(nome)
             if achados.empty:
-                raise ErroRequisicao("Jogo não encontrado na base de dados.", 404)
-            jogo = achados.iloc[0]
-            outros = [self.resumo_jogo(j) for _, j in achados.iloc[1:].iterrows()]
+                raise ErroRequisicao(
+                    "Jogo não encontrado nas lojas (" + (self._resumo_lojas() or "sem resposta") + ").", 404)
+        jogo = achados.iloc[0]
+        outros = [self.resumo_jogo(j) for _, j in achados.iloc[1:].iterrows()]
 
         return {
             "jogo": self.resumo_jogo(jogo),
             "avaliacao": self._avaliar_jogo(jogo),
-            "outros_resultados": outros,   # outros jogos com nome parecido (use o app_id para escolher)
+            "outros_resultados": outros,
+            "lojas_status": self.lojas_status,
             "aviso": AVISO_ESTIMATIVA,
         }
 
@@ -878,7 +1020,7 @@ def _orcamento(corpo):
     try:
         valor = float(corpo["orcamento"])
     except (KeyError, TypeError, ValueError):
-        raise ErroRequisicao("'orcamento' deve ser um número (em US$).")
+        raise ErroRequisicao("'orcamento' deve ser um número (em R$).")
     if math.isnan(valor) or math.isinf(valor):
         raise ErroRequisicao("'orcamento' deve ser um número válido.")
     if valor < 0:
@@ -898,9 +1040,19 @@ def _inteiro(corpo, campo, padrao, maximo):
     return min(valor, maximo)
 
 
+def _dificuldade(corpo):
+    """Lê 'dificuldade' (fácil/médio/difícil, opcional) e devolve o rótulo oficial ou None."""
+    bruto = str(corpo.get("dificuldade") or "").strip().lower()
+    if not bruto:
+        return None
+    rotulo = ALIAS_DIFICULDADE.get(bruto)
+    if rotulo is None:
+        raise ErroRequisicao("'dificuldade' deve ser fácil, médio ou difícil.")
+    return rotulo
+
+
 def _sistema():
-    jogos, hardware = carregar_dados()
-    return Sistema(jogos, hardware)
+    return Sistema(carregar_dados())
 
 
 @app.errorhandler(ErroRequisicao)
@@ -928,8 +1080,14 @@ def _erro_inesperado(e):
 @app.get("/saude")
 def saude():
     """Confere se a API está no ar e quantos jogos foram carregados."""
-    jogos, hardware = carregar_dados()
-    return jsonify({"status": "ok", "jogos": len(jogos), "pecas_de_hardware": len(hardware)})
+    hardware = carregar_dados()
+    return jsonify({"status": "ok", "fonte_dos_jogos": list(lojas.LOJAS), "pecas_de_hardware": len(hardware)})
+
+
+@app.get("/lojas/status")
+def lojas_status():
+    """Testa as 3 lojas com uma busca simples. Abra no navegador para ver qual API está respondendo."""
+    return jsonify({"lojas": lojas.testar()})
 
 
 @app.get("/regras")
@@ -940,7 +1098,7 @@ def regras():
 
 @app.get("/hardware/buscar")
 def hardware_buscar():
-    """Autocomplete de CPU/GPU: GET /hardware/buscar?nome=1650"""
+    """Autocomplete de CPU/GPU: GET /hardware/buscar?nome=e5 2680 v4"""
     nome = (request.args.get("nome") or "").strip()
     if not nome:
         raise ErroRequisicao("Informe o parâmetro 'nome'.")
@@ -978,7 +1136,10 @@ def jogos_buscar():
         raise ErroRequisicao("'limite' deve ser um número inteiro.")
     sistema = _sistema()
     achados = sistema.pesquisar_jogo(nome, limite)
-    return jsonify({"resultados": [sistema.resumo_jogo(j) for _, j in achados.iterrows()]})
+    return jsonify({
+        "resultados": [sistema.resumo_jogo(j) for _, j in achados.iterrows()],
+        "lojas_status": sistema.lojas_status,
+    })
 
 
 @app.post("/jogos/recomendar")
@@ -988,14 +1149,16 @@ def jogos_recomendar():
     Corpo: {
       "categoria": "terror", "orcamento": 30,
       "hardware": {"cpu": "i5-9400F", "gpu": "GTX 1650", "ram": 16, "geracao_ram": "DDR4", "mhz": 3200},
+      "dificuldade": "fácil",  (opcional: fácil, médio ou difícil)
       "limite": 15,        (opcional)
-      "avaliar_top": 300   (opcional: quantos jogos mais bem avaliados da categoria são analisados)
+      "avaliar_top": 30    (opcional: quantos jogos da categoria são buscados nas lojas)
     }
     """
     corpo = _json_do_corpo()
     categoria = str(corpo.get("categoria") or "").strip()
     if not categoria:
         raise ErroRequisicao("Informe a 'categoria' (gênero/tag, ex: terror, estratégia, RPG).")
+    dificuldade = _dificuldade(corpo)
 
     sistema = _sistema()
     sistema.preco = _orcamento(corpo)
@@ -1006,6 +1169,7 @@ def jogos_recomendar():
         categoria,
         _inteiro(corpo, "limite", LIMITE_EXIBICAO_PADRAO, LIMITE_EXIBICAO_MAX),
         _inteiro(corpo, "avaliar_top", LIMITE_AVALIACAO_PADRAO, LIMITE_AVALIACAO_MAX),
+        dificuldade,
     )
     resposta["hardware"] = hardware
     return jsonify(resposta)
@@ -1016,7 +1180,7 @@ def jogos_verificar():
     """
     Opção 2: um jogo específico roda no PC e cabe no orçamento?
     Corpo: {
-      "nome": "witcher 3"  (ou "app_id": 292030),
+      "nome": "witcher 3"  (ou "app_id": 292030, ID da Steam),
       "orcamento": 50,
       "hardware": {"cpu": "...", "gpu": "...", "ram": 16, "geracao_ram": "DDR4", "mhz": 3200}
     }
