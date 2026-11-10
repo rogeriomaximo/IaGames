@@ -39,7 +39,7 @@ HARDWARE_MENOR_E_MELHOR = os.environ.get("HARDWARE_MENOR_E_MELHOR", "0") == "1"
 BRL_POR_USD = 5.5
 
 # Limites padrão da recomendação por categoria (podem ser sobrescritos na requisição)
-LIMITE_AVALIACAO_PADRAO = 30    # cada jogo exige requisições às lojas; mantenha baixo
+LIMITE_AVALIACAO_PADRAO = 20    # cada jogo exige requisições às lojas; mantenha baixo
 LIMITE_AVALIACAO_MAX = 60
 LIMITE_EXIBICAO_PADRAO = 15
 LIMITE_EXIBICAO_MAX = 50
@@ -939,6 +939,9 @@ class Sistema:
             lista, self.lojas_status = lojas.buscar_por_nome(consulta, limite)
             if lista:
                 return _df_jogos(lista).head(limite)
+            # Se as lojas falharam/estouraram o prazo, repetir com outro texto só atrasaria a resposta.
+            if any(not st.get("ok") for st in self.lojas_status.values()):
+                break
         return _df_jogos([])
 
     def resumo_jogo(self, jogo):
@@ -1081,7 +1084,15 @@ def _erro_inesperado(e):
 def saude():
     """Confere se a API está no ar e quantos jogos foram carregados."""
     hardware = carregar_dados()
-    return jsonify({"status": "ok", "fonte_dos_jogos": list(lojas.LOJAS), "pecas_de_hardware": len(hardware)})
+    return jsonify({"status": "ok", "fonte_dos_jogos": list(lojas.LOJAS), "pecas_de_hardware": len(hardware),
+                    "cache_lojas": lojas.info_cache()})
+
+
+@app.post("/lojas/cache/limpar")
+def lojas_cache_limpar():
+    """Esvazia o cache das lojas (útil depois de mudar preços ou se algo ficou 'preso')."""
+    lojas.limpar_cache()
+    return jsonify({"status": "cache limpo"})
 
 
 @app.get("/lojas/status")
